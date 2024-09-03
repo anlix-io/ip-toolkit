@@ -74,6 +74,38 @@ const ipConvertCases = [
     contains: 1212121,
     cidrs: [],
   },
+  {
+    result: false,
+    ip: 231212312,
+    long: '231212312',
+    cidr: '10.0.0.0/32.',
+    contains: 1212121,
+    cidrs: [],
+  },
+  {
+    result: false,
+    ip: 231212312,
+    long: '231212312',
+    cidr: '192.168.18.1/32/1',
+    contains: 1212121,
+    cidrs: [],
+  },
+  {
+    result: false,
+    ip: 231212312,
+    long: '231212312',
+    cidr: '2804:3e0:0::6444/32.',
+    contains: 1212121,
+    cidrs: [],
+  },
+  {
+    result: false,
+    ip: 231212312,
+    long: '231212312',
+    cidr: '2804:3e0:0::6444/32/23/',
+    contains: 1212121,
+    cidrs: [],
+  },
 ];
 
 describe('long2ip', () => {
