@@ -29,9 +29,13 @@ interface SubNet {
 
 export function parseCIDR(cidr: string) {
   if (typeof cidr !== 'string') return false;
-
-  const [ip, mask] = cidr.split('/');
-  if (ip === undefined || mask === undefined || mask === '') return false;
+  
+  // fixing cases where user put another invalid stuffs after /
+  const cidrTokens = cidr.split('/');
+  if (cidrTokens.length !== 2) return false;
+  const [ip, mask] = cidrTokens;
+  if (ip === undefined || mask === undefined ||
+    !mask.match(/^[0-9]+$/)) return false;
 
   const prefixLength = +mask;
   if (!isValidIP(ip) || isNaN(prefixLength) || prefixLength < 0 || prefixLength > 128) return false;

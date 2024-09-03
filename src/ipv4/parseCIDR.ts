@@ -39,8 +39,12 @@ interface SubNet {
 export function parseCIDR(cidr: string): SubNet | false {
   if (typeof cidr !== 'string') return false;
   
-  const [ip, mask] = cidr.split('/');
-  if (ip === undefined || mask === undefined || mask === '') return false;
+  // fixing cases where user put another invalid stuffs after /
+  const cidrTokens = cidr.split('/');
+  if (cidrTokens.length !== 2) return false;
+  const [ip, mask] = cidrTokens;
+  if (ip === undefined || mask === undefined ||
+    !mask.match(/^[0-9]+$/)) return false;
   if (!isValidIP(ip) || !isValidMask(+mask)) return false;
   
   const length = 32 - +mask;
